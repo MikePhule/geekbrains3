@@ -6,21 +6,27 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        System.out.println("Task 1.");
         Integer[] array = new Integer[] {1, 2, 3};
-//        int indexSource = 0;
-//        int indexDest = 2;
-//        array = arraySwitch(array, indexSource, indexDest);
-//        for (Integer integer : array) {
-//            System.out.println(integer);
-//        }
+        System.out.println("Source array:");
+        printArray(array);
 
-//        List<Integer> list = getArrayList(array);
-//        System.out.println(list);
+        int indexSource = 0;
+        int indexDest = 2;
+        array = arraySwitch(array, indexSource, indexDest);
+        System.out.println("Switched array:");
+        printArray(array);
 
+        System.out.println("--------------------------");
+        System.out.println("Task 2.");
+        List<Integer> list = getArrayList(array);
+        System.out.println("Array list:" + list);
+
+        System.out.println("--------------------------");
+        System.out.println("Task 3.");
         Box<Orange> orangeBox = new Box<>();
         Box<Apple> appleBox = new Box<>();
-        Box<Fruit> fruitBox = new Box<>();
-        fruitBox.addFruit(new Orange());
 
         orangeBox.addFruit(new Orange());
 //        orangeBox.addFruit(new Orange());
@@ -38,12 +44,20 @@ public class Main {
         System.out.println(orangeBox1.compare(appleBox));
     }
 
+    private static void printArray(Integer[] array) {
+        for (Integer integer : array) {
+            System.out.println(integer);
+        }
+    }
+
+    // Task 1
     private static <T> ArrayList<T> getArrayList(T[] array) {
         ArrayList<T> arrayList = new ArrayList<>();
         Collections.addAll(arrayList, array);
         return arrayList;
     }
 
+    // Task 2
     private static <T> T[] arraySwitch(T[] t, int indexSource, int indexDest) {
         T temp = t[indexDest];
         t[indexDest] = t[indexSource];
@@ -52,59 +66,3 @@ public class Main {
     }
 }
 
-abstract class Fruit {
-    float weight;
-
-    public float getWeight() {
-        return weight;
-    }
-}
-
-class Orange extends Fruit {
-    public Orange() {
-        this.weight = 1.5f;
-    }
-}
-
-class Apple extends Fruit {
-    public Apple() {
-        this.weight = 1f;
-    }
-}
-
-class Box <T extends Fruit> {
-    List<T> list;
-
-    public Box() {
-        this.list = new ArrayList<T>();
-    }
-
-    public float getWeight() {
-        float weight = 0;
-        for (T t : list) {
-            weight += t.getWeight();
-        }
-        return weight;
-    }
-
-    public void addFruit(T t) {
-        list.add(t);
-    }
-
-    public boolean compare(Box<?> box) {
-        return this.getWeight() == box.getWeight();
-    }
-
-    public void moveToAnotherBox(Box<T> box) {
-        for (T t : list) {
-            box.addFruit(t);
-        }
-        list.clear();
-    }
-
-    public void print() {
-        for (T t : list) {
-            System.out.println(t);
-        }
-    }
-}
